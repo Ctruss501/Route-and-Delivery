@@ -18,8 +18,11 @@ def main():
     if selection == '1':
         trucks = (loadDeliver.loadTruckPacks())
         timeInput = input('Below, type the time ' + '\033[33m' '(hh:mm:ss)' '\033[0m' + ' for which you would like the status update:')
-        (h, m, s) = timeInput.split(':')
-        print('Please enter time in (hh:mm:ss) format.')
+        try:
+            (h, m, s) = timeInput.split(':')
+        except ValueError:
+            print('\n\n' + '\033[1;31;47m' + 'Please enter time in (hh:mm:ss) format.' + '\033[0m')
+            return main()
         timeConvert = datetime.timedelta(hours=int(h), minutes=int(m), seconds=int(s))
         loadDeliver.truckDeliverPackages(trucks, hashTable)
         print('Status of packages at ' + '\033[32m' + timeInput + '\033[0m')
